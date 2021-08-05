@@ -4,13 +4,18 @@ import {Button, TextInput} from 'react-native-paper'
 
 export default class App extends Component {
 	render() {
+		const imc = 25
+		const legenda = 'Normal'
+
+		// imc = peso / altura 2
+
 		return (
 			<View style={styles.app}>
 				<Text style={styles.legenda}>Seu IMC</Text>
 
 				<View>
-					<Text style={styles.resultado}>25</Text>
-					<Text style={styles.diagnostico}>Normal</Text>
+					<Text style={styles.resultado}>{imc}</Text>
+					<Text style={styles.diagnostico}>{legenda}</Text>
 				</View>
 				<View>
 					<TextInput style={styles.peso} />
