@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, Button} from 'react-native'
 
 export default class App extends Component {
+	digaOla = () => {
+		alert('Olá tudo bem Rafael?')
+	}
+
 	render() {
 		return (
 			<View style={sytles.container}>
-				<Text>Hello!</Text>
+				<Button mode='contained' onPress={this.digaOla} title='Diga Olá para o Rafael.' />
 			</View>
 		)
 	}
