@@ -9,6 +9,7 @@ export default class App extends Component {
 		altura: 0,
 		imc: 0,
 		legenda: 'Indeterminado',
+		cor: '#bdc3c7',
 	}
 
 	calcularIMC = () => {
@@ -21,48 +22,58 @@ export default class App extends Component {
 		if (resultado < 18.5) {
 			this.setState({
 				legenda: 'Magreza',
+				cor: '#e74c3c',
 			})
 		} else if (resultado >= 18.5 && resultado < 25) {
 			this.setState({
 				legenda: 'Normal',
+				cor: '#2ecc71',
 			})
 		} else if (resultado >= 25 && resultado < 30) {
 			this.setState({
 				legenda: 'Sobrepeso',
+				cor: '#f1c40f',
 			})
 		} else if (resultado >= 30 && resultado < 40) {
 			this.setState({
 				legenda: 'Obesidade',
+				cor: '#e67e22',
 			})
 		} else if (resultado >= 40) {
 			this.setState({
 				legenda: 'Obesidade Grave',
+				cor: '#e74c3c',
 			})
 		}
 	}
+
 	render() {
 		return (
 			<View style={styles.app}>
 				<Text style={styles.legenda}>Seu IMC</Text>
 
-				<View>
+				<View style={[styles.painel, {backgroundColor: this.state.cor}]}>
 					<Text style={styles.resultado}>{this.state.imc}</Text>
 					<Text style={styles.diagnostico}>{this.state.legenda}</Text>
 				</View>
 				<View>
 					<TextInput
 						style={styles.peso}
+						label='Peso'
 						onChangeText={valor => {
 							this.setState({peso: valor.replace(',', '.')})
 						}}
 					/>
 					<TextInput
 						style={styles.altura}
+						label='Altura'
 						onChangeText={valor => {
 							this.setState({altura: valor.replace(',', '.')})
 						}}
 					/>
-					<Button onPress={this.calcularIMC}>Calcular</Button>
+					<Button mode='contained' onPress={this.calcularIMC}>
+						Calcular
+					</Button>
 				</View>
 			</View>
 		)
@@ -72,6 +83,13 @@ export default class App extends Component {
 const styles = StyleSheet.create({
 	app: {
 		padding: 10,
+	},
+	painel: {
+		alignSelf: 'center',
+		borderRadius: 5,
+		width: 150,
+		marginVertical: 10,
+		padding: 8,
 	},
 	legenda: {
 		textAlign: 'center',
@@ -87,11 +105,9 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 	},
 	peso: {
-		borderColor: '#000',
-		borderWidth: 1,
+		marginVertical: 10,
 	},
 	altura: {
-		borderColor: '#000',
-		borderWidth: 1,
+		marginVertical: 10,
 	},
 })
