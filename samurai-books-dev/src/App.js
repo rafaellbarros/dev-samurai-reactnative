@@ -1,9 +1,10 @@
 import React from 'react'
+import Book from './pages/Book'
 
 import Main from './pages/Main'
 
 const App = () => {
-	return <Main />
+	return <Book />
 }
 
 export default App

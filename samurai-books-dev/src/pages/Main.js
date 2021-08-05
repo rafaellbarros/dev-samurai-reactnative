@@ -52,7 +52,8 @@ const Main = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		padding: 5,
+		marginTop: 20,
+		padding: 10,
 	},
 	toolBox: {
 		flexDirection: 'row',
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		flex: 1,
-		fontSize: 16,
+		fontSize: 22,
 		color: '#3498db',
 	},
 	tollboxButton: {
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
 	},
 	itemButton: {},
 	itemText: {
-		fontSize: 16,
+		fontSize: 20,
 		color: '#000',
 	},
 })
