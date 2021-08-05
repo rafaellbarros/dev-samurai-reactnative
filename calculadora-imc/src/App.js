@@ -5,8 +5,8 @@ import {Button, TextInput} from 'react-native-paper'
 export default class App extends Component {
 	// valores globais do app
 	state = {
-		peso: 94,
-		altura: 1.83,
+		peso: 0,
+		altura: 0,
 		imc: 0,
 		legenda: 'Indeterminado',
 	}
@@ -15,7 +15,7 @@ export default class App extends Component {
 		const resultado = this.state.peso / (this.state.altura * this.state.altura)
 
 		this.setState({
-			imc: resultado,
+			imc: Math.ceil(resultado),
 		})
 
 		if (resultado < 18.5) {
@@ -50,8 +50,18 @@ export default class App extends Component {
 					<Text style={styles.diagnostico}>{this.state.legenda}</Text>
 				</View>
 				<View>
-					<TextInput style={styles.peso} />
-					<TextInput style={styles.altura} />
+					<TextInput
+						style={styles.peso}
+						onChangeText={valor => {
+							this.setState({peso: valor.replace(',', '.')})
+						}}
+					/>
+					<TextInput
+						style={styles.altura}
+						onChangeText={valor => {
+							this.setState({altura: valor.replace(',', '.')})
+						}}
+					/>
 					<Button onPress={this.calcularIMC}>Calcular</Button>
 				</View>
 			</View>
