@@ -3,28 +3,51 @@ import {View, Text, StyleSheet} from 'react-native'
 import {Button, TextInput} from 'react-native-paper'
 
 export default class App extends Component {
-	calcularIMC = () => {
-		const peso = 94
-		const altura = 1.83
-
-		const imc = peso / (altura * altura)
-
-		alert(imc)
+	// valores globais do app
+	state = {
+		peso: 94,
+		altura: 1.83,
+		imc: 0,
+		legenda: 'Indeterminado',
 	}
 
+	calcularIMC = () => {
+		const resultado = this.state.peso / (this.state.altura * this.state.altura)
+
+		this.setState({
+			imc: resultado,
+		})
+
+		if (resultado < 18.5) {
+			this.setState({
+				legenda: 'Magreza',
+			})
+		} else if (resultado >= 18.5 && resultado < 25) {
+			this.setState({
+				legenda: 'Normal',
+			})
+		} else if (resultado >= 25 && resultado < 30) {
+			this.setState({
+				legenda: 'Sobrepeso',
+			})
+		} else if (resultado >= 30 && resultado < 40) {
+			this.setState({
+				legenda: 'Obesidade',
+			})
+		} else if (resultado >= 40) {
+			this.setState({
+				legenda: 'Obesidade Grave',
+			})
+		}
+	}
 	render() {
-		const imc = 25
-		const legenda = 'Normal'
-
-		// imc = peso / altura 2
-
 		return (
 			<View style={styles.app}>
 				<Text style={styles.legenda}>Seu IMC</Text>
 
 				<View>
-					<Text style={styles.resultado}>{imc}</Text>
-					<Text style={styles.diagnostico}>{legenda}</Text>
+					<Text style={styles.resultado}>{this.state.imc}</Text>
+					<Text style={styles.diagnostico}>{this.state.legenda}</Text>
 				</View>
 				<View>
 					<TextInput style={styles.peso} />
