@@ -3,7 +3,7 @@ import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-const Book = () => {
+const Book = ({navigation}) => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Inclua seu novo livro...</Text>
@@ -19,7 +19,11 @@ const Book = () => {
 				<Text style={styles.saveButtonText}>Cdastrar</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.cancelButton}>
+			<TouchableOpacity
+				style={styles.cancelButton}
+				onPress={() => {
+					navigation.goBack()
+				}}>
 				<Text style={styles.cancelButtonText}>Cancelar</Text>
 			</TouchableOpacity>
 		</View>
