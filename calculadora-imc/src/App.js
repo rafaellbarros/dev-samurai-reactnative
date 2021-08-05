@@ -3,6 +3,15 @@ import {View, Text, StyleSheet} from 'react-native'
 import {Button, TextInput} from 'react-native-paper'
 
 export default class App extends Component {
+	calcularIMC = () => {
+		const peso = 94
+		const altura = 1.83
+
+		const imc = peso / (altura * altura)
+
+		alert(imc)
+	}
+
 	render() {
 		const imc = 25
 		const legenda = 'Normal'
@@ -20,7 +29,7 @@ export default class App extends Component {
 				<View>
 					<TextInput style={styles.peso} />
 					<TextInput style={styles.altura} />
-					<Button>Calcular</Button>
+					<Button onPress={this.calcularIMC}>Calcular</Button>
 				</View>
 			</View>
 		)
