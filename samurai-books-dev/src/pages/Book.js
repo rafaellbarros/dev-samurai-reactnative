@@ -8,13 +8,26 @@ const Book = ({navigation}) => {
 	const [description, setDescription] = useState()
 	const [photo, setPhoto] = useState()
 
+	const isValid = () => {
+		if (title !== undefined && title !== '') {
+			return true
+		}
+		return false
+	}
+
 	const onSave = () => {
-		// 1. capturar os dados
+		// 1. capturar os dados [OK]
 		// 2. validar
 		// 3. salvar no bd
 
 		console.log(`Title => ${title}`)
 		console.log(`Description => ${description}`)
+
+		if (isValid()) {
+			console.log('Válido!')
+		} else {
+			console.log('Inválido!')
+		}
 	}
 
 	return (
@@ -44,7 +57,9 @@ const Book = ({navigation}) => {
 				<Icon name='photo-camera' size={18} color='#fff' />
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.saveButton} onPress={onSave}>
+			<TouchableOpacity
+				style={[styles.saveButton, !isValid() ? styles.saveButtonInvalid : '']}
+				onPress={onSave}>
 				<Text style={styles.saveButtonText}>Cdastrar</Text>
 			</TouchableOpacity>
 
