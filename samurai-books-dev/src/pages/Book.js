@@ -1,27 +1,39 @@
-import React, {useState} from 'react'
-import {AsyncStorage, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, AsyncStorage} from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const Book = ({navigation}) => {
+	const [books, setBooks] = useState([])
 	const [title, setTitle] = useState()
 	const [description, setDescription] = useState()
 	const [photo, setPhoto] = useState()
+
+	useEffect(() => {
+		AsyncStorage.getItem('books').then(data => {
+			if (data) {
+				const book = JSON.parse(data)
+				setBooks(book)
+			}
+		})
+	}, [])
 
 	const isValid = () => {
 		if (title !== undefined && title !== '') {
 			return true
 		}
+
 		return false
 	}
 
 	const onSave = async () => {
-		console.log(`Title => ${title}`)
-		console.log(`Description => ${description}`)
+		console.log(`Title ${title}`)
+		console.log(`Description ${description}`)
 
 		if (isValid()) {
 			console.log('Válido!')
-			const id = 1
+
+			const id = Math.random(5000).toString()
 			const data = {
 				id,
 				title,
@@ -29,8 +41,11 @@ const Book = ({navigation}) => {
 				photo,
 			}
 
+			books.push(data)
+
 			console.log(JSON.stringify(data))
-			await AsyncStorage.setItem('books', JSON.stringify(data))
+			await AsyncStorage.setItem('books', JSON.stringify(books))
+			navigation.goBack()
 		} else {
 			console.log('Inválido!')
 		}
@@ -43,11 +58,10 @@ const Book = ({navigation}) => {
 				style={styles.input}
 				placeholder='Título'
 				value={title}
-				onChangeText={title => {
-					setTitle(title)
+				onChangeText={text => {
+					setTitle(text)
 				}}
 			/>
-
 			<TextInput
 				style={styles.input}
 				placeholder='Descrição'
@@ -66,7 +80,7 @@ const Book = ({navigation}) => {
 			<TouchableOpacity
 				style={[styles.saveButton, !isValid() ? styles.saveButtonInvalid : '']}
 				onPress={onSave}>
-				<Text style={styles.saveButtonText}>Cdastrar</Text>
+				<Text style={styles.saveButtonText}>Cadastrar</Text>
 			</TouchableOpacity>
 
 			<TouchableOpacity
@@ -84,7 +98,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 10,
-		marginTop: 20,
 	},
 	pageTitle: {
 		textAlign: 'center',
@@ -111,7 +124,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#f39c12',
 		alignSelf: 'center',
 		borderRadius: 8,
-		paddingVertical: 8,
+		paddingVertical: 10,
 		paddingHorizontal: 20,
 		marginBottom: 20,
 	},

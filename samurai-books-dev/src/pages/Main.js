@@ -4,12 +4,12 @@ import {AsyncStorage, FlatList, StyleSheet, Text, TouchableOpacity, View} from '
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const Main = ({navigation}) => {
-	const [books, setBooks] = useState()
+	const [books, setBooks] = useState([])
 
 	useEffect(() => {
 		AsyncStorage.getItem('books').then(data => {
 			const book = JSON.parse(data)
-			setBooks([book])
+			setBooks(book)
 		})
 	}, [])
 
